@@ -1,0 +1,28 @@
+@import '/src/app/styles/abstracts/variable';
+
+.todo-table {
+    width: 100%;
+}
+
+.mat-header-cell {
+    text-align: center;
+    background-color: $GRAY;
+    color: $WHITE;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    vertical-align: middle;
+}
+
+.mat-raised-button {
+    + .mat-raised-button {
+        margin-left: .5rem;
+    }
+}
+
+  
+  
