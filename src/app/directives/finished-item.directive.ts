@@ -4,9 +4,7 @@ import { Directive, ElementRef, Input } from '@angular/core';
   selector: '[isFinish]',
 })
 export class FinishDirective {
-   
-
- 
+    
   constructor(private element: ElementRef) {}
 
   @Input() 

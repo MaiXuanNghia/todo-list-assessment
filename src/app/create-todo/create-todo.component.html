@@ -1,1 +1,38 @@
-<p>create-todo works!</p>
+<h1 mat-dialog-title>Create New Item</h1>
+<form [formGroup]="createTodoForm" mat-dialog-content>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Summary: </mat-label>
+        <input formControlName="summary" matInput placeholder="30 character limit">
+    </mat-form-field>
+    <mat-error *ngIf="createTodoForm.get('summary')?.hasError('maxlength')">
+        Summary cannot longer than 30 characters
+    </mat-error>
+    <mat-error *ngIf="createTodoForm.get('summary')?.hasError('required')">
+        Summary cannot empty.
+    </mat-error>
+    <mat-form-field appearance="outline">
+        <mat-label>Description:</mat-label>
+        <input formControlName="description" matInput placeholder="(Optional)">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Priority:</mat-label>
+        <mat-select formControlName="priority">
+            <mat-option *ngFor="let item of priorities" [value]="item">
+                {{item}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Due Date:</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dueDate" [min]="today">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker color="primary" matDatePicker></mat-datepicker>
+    </mat-form-field>
+</form>
+<div mat-dialog-actions class="btn-group">
+    <button mat-raised-button (click)="onClose()" color="warn">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmitCreateTodoForm(createTodoForm.value)"
+        [disabled]="createTodoForm.status === 'INVALID'">Create</button>
+</div>

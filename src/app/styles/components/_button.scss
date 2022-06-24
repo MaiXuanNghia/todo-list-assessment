@@ -1,0 +1,27 @@
+
+.mat-button.mat-success,
+.mat-raised-button.mat-success {
+    background-color: #087521;
+    color: white;
+}
+
+.mat-button.mat-success,
+.mat-raised-button.mat-success {
+    &:hover {
+        background-color: #32af4f;
+    }
+}
+
+.mat-button.mat-warning,
+.mat-raised-button.mat-warning {
+    background-color: #856e0b;
+    color: white;
+}
+
+.mat-button.mat-warning,
+.mat-raised-button.mat-warning {
+    &:hover {
+        background-color: #dabe45;
+        color: white;
+    }
+}

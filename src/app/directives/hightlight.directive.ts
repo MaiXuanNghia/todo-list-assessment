@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Input } from "@angular/core";
+import { Todo } from "../todo.interface";
 
 
 
@@ -16,15 +17,17 @@ export class HightLightDirective {
     }
 
     @Input()
-    set deadlineHightLight(dueDate: Date) {
-        const today = new Date().getDate();
-        const deadline = new Date(dueDate).getDate();
-        const deadlineCount = deadline - today;
-        if(deadlineCount <= 1 && deadlineCount > 0) {
-            this.setHightlightColor('#e3c70e');
-        }
-        else if (deadlineCount <= 0) {
-            this.setHightlightColor('#e30e2a');
+    set deadlineHightLight(todo: Todo) {
+        const today = new Date();
+        const deadline = new Date(todo.dueDate);
+        const deadlineCount = deadline.getDate() - today.getDate();
+        if(today.getMonth() === deadline.getMonth()) {
+            if((deadlineCount <= 1 && deadlineCount > 0) && todo.priority === 3) {
+                this.setHightlightColor('#e3c70e');
+            }
+            else if (deadlineCount <= 0) {
+                this.setHightlightColor('#e30e2a');
+            }
         }
     }
 

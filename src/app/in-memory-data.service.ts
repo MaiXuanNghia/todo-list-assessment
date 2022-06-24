@@ -15,7 +15,7 @@ export class InMemoryDataService implements InMemoryDbService {
          summary: 'Finish the assessments',
          priority: 2,
          isCompleted: false,
-         dueDate: new Date(2022, 6, 24),
+         dueDate: new Date(2022, 5, 25),
          description: 'Investigate the requirements, develop the application with Angular, SCSS, and Angular Material'
       },
       {
@@ -23,14 +23,14 @@ export class InMemoryDataService implements InMemoryDbService {
          summary: 'Continue learning Angular',
          priority: 3,
          isCompleted: false,
-         dueDate: new Date(2022, 6, 30),
+         dueDate: new Date(2022, 5, 30),
       },
       {
          id: 3,
          summary: 'Research about pre-processor and post-processor',
          priority: 1,
          isCompleted: true,
-         dueDate: new Date(2022, 7, 30),
+         dueDate: new Date(2022, 5, 30),
          completedDate: new Date(),
       },
       {
@@ -38,16 +38,24 @@ export class InMemoryDataService implements InMemoryDbService {
          summary: 'Reading Augular Form',
          priority: 3,
          isCompleted: false,
-         dueDate: new Date(2022, 7, 22),
+         dueDate: new Date(2022, 5, 22),
       },
       {
          id: 5,
          summary: 'Reading Augular Form Twice',
-         priority: 2,
+         priority: 3,
          isCompleted: true,
-         dueDate: new Date(2022, 7, 22),
-         completedDate: new Date(2022, 6, 23),
+         dueDate: new Date(2022, 6, 22),
+         completedDate: new Date(2022, 5, 23),
       },
+      {
+         id: 6,
+         summary: "Test",
+         description: 'Learning Angular material UI',
+         isCompleted: false,
+         dueDate: new Date(2022, 5, 25),
+         priority: 3
+      }
      ]
     return {todos}
   }

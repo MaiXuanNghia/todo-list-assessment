@@ -1,7 +1,14 @@
 @import '/src/app/styles/abstracts/variable';
 
+.create-btn {
+   margin: 1rem;
+}
+
 .todo-table {
     width: 100%;
+    overflow: auto;
+    max-height: 100px;
+    height: 100%;
 }
 
 .mat-header-cell {
@@ -10,12 +17,14 @@
     color: $WHITE;
     font-size: 1rem;
     vertical-align: middle;
+    padding: .5rem;
 }
 
 .mat-row .mat-cell {
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
+    border-bottom: 1px solid $GRAY;
+    border-right: 1px solid $GRAY;
     vertical-align: middle;
+    padding: .5rem;
 }
 
 .mat-raised-button {
@@ -24,5 +33,15 @@
     }
 }
 
-  
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: .5rem;
+    padding: .5rem;
+    text-decoration: none;
+}
+
+
   
