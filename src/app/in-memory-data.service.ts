@@ -27,7 +27,8 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
          id: 3,
-         summary: 'Research about pre-processor and post-processor',
+         summary: 'Research about css',
+         description: 'Research about pre-processor and post-processor',
          priority: 1,
          isCompleted: true,
          dueDate: new Date(2022, 5, 30),
@@ -38,14 +39,14 @@ export class InMemoryDataService implements InMemoryDbService {
          summary: 'Reading Augular Form',
          priority: 3,
          isCompleted: false,
-         dueDate: new Date(2022, 5, 22),
+         dueDate: new Date(2022, 5, 29),
       },
       {
          id: 5,
          summary: 'Reading Augular Form Twice',
          priority: 3,
          isCompleted: true,
-         dueDate: new Date(2022, 6, 22),
+         dueDate: new Date(2022, 6, 28),
          completedDate: new Date(2022, 5, 23),
       },
       {
@@ -55,7 +56,15 @@ export class InMemoryDataService implements InMemoryDbService {
          isCompleted: false,
          dueDate: new Date(2022, 5, 25),
          priority: 3
-      }
+      },
+      {
+         id: 7,
+         summary: "Test the hightlight",
+         description: 'Todo item must be hightlighted if the deadline is one day left',
+         isCompleted: false,
+         dueDate: new Date(2022, 5, 28),
+         priority: 3
+      },
      ]
     return {todos}
   }

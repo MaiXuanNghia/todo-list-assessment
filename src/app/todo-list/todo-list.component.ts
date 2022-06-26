@@ -38,17 +38,21 @@ export class TodoListComponent implements OnInit {
   constructor(private todoService: TodoService, public dialog: MatDialog) { }
 
   sortTodo(current: Todo, next: Todo) {
+    //sort by complete date for item which finished
     if(current.completedDate && next.completedDate) {
       return new Date(current.completedDate).getDate() - new Date(next.completedDate).getDate();
     }
-    if(current.isCompleted === next.isCompleted) {
+    if(!current.isCompleted && !next.isCompleted) {
+      //sort by due date if 2 items have the same status isCompleted=false and have the same priority
       if(current.priority === next.priority) {
         return new Date(current.dueDate).getDate() - new Date(next.dueDate).getDate();
       }
+      //sort by priority descending
       else {
         return next.priority - current.priority
       }
     }
+    //in case 2 close items have different isCompleted status, sort by isCompleted with order true value first, then false
     else {
       return current.isCompleted ? 1 : -1;
     }
