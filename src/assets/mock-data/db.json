@@ -31,6 +31,14 @@
       "priority": 3,
       "isCompleted": false,
       "id": 9
+    },
+    {
+      "summary": "Test deadline directive",
+      "description": "123",
+      "dueDate": "2022-06-28T17:00:00.000Z",
+      "priority": 3,
+      "isCompleted": false,
+      "id": 10
     }
   ]
 }
