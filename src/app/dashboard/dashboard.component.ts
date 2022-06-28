@@ -1,21 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Todo } from '../todo.interface';
-import { TodoService } from '../todo.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  todos: Todo[] = [];
 
   constructor() { }
-
-  ngOnInit(): void {
- 
-  }
-
 
 }

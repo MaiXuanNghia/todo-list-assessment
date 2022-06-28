@@ -37,7 +37,7 @@ export class CreateTodoComponent implements OnInit, OnDestroy {
     ]),
     description: new FormControl<string>(''),
     dueDate: new FormControl<Date>(this.defaultDeadline),
-    completedDate: new FormControl<Date|null>(null),
+    completedDate: new FormControl<Date|null>({value: null, disabled: !this.data.todoItem?.isCompleted}),
     priority: new FormControl<number>(1),
   });
 
@@ -51,21 +51,21 @@ export class CreateTodoComponent implements OnInit, OnDestroy {
     this.isEdit = this.data.isEditForm;
     if(this.isEdit) {
       this.todoForm.patchValue({
-        ...this.data.todoItem
+        ...this.data.todoItem,
       })
     }
   }
   
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.isEdit = false;
     this.todoForm.reset();
   }
 
-  onClose(): void {
+  public onClose(): void {
     this.dialogRef.close();
   }
 
-  onSubmitTodoForm(formData: Record<any, any>) {
+  public onSubmitTodoForm(formData: Record<any, any>) {
     if(this.isEdit) {
       this.todoService.updateTodo({...this.data.todoItem ,...formData} as Todo).pipe(delay(2000)).subscribe(() => {
         alert('Todo Item Updated');
@@ -77,6 +77,7 @@ export class CreateTodoComponent implements OnInit, OnDestroy {
       this.todoService
       .createTodo({ ...formData, isCompleted: false } as Todo)
       .subscribe(() => {
+        alert('Todo Item Created');
         this.data.reloadTodoList();
         this.onClose();
       });

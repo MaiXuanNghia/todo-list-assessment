@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { delay } from 'rxjs';
@@ -48,21 +49,13 @@ export class TodoListComponent implements OnInit {
   }
 
   public sortTodo(current: Todo, next: Todo) {
-    if (!current.isCompleted && !next.isCompleted) {
-      //sort by due date if 2 items have the same status isCompleted=false and have the same priority
-      if (current.priority === next.priority) {
-        return (
-          new Date(current.dueDate).getDate() - new Date(next.dueDate).getDate()
-        );
-      }
-      //sort by priority descending
-      else {
-        return next.priority - current.priority;
-      }
+    if (current.priority === next.priority) {
+      return (
+        new Date(current.dueDate).getDate() - new Date(next.dueDate).getDate()
+      );
     }
-    //in case 2 close items have different isCompleted status, sort by isCompleted with order true value first, then false
     else {
-      return current.isCompleted ? 1 : -1;
+      return next.priority - current.priority;
     }
   }
 
@@ -155,10 +148,16 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-  public removeTodo(todo: Todo) {
+  private removeTodo(todo: Todo) {
     this.todoService
       .removeTodo(todo)
       .pipe(delay(2000))
       .subscribe(() => this.getTodos());
+  }
+
+  public dropTodoItem(event: CdkDragDrop<Todo[]>) {
+    if(event.previousContainer !== event.container) {
+      this.onOpenRemoveDialog(this.todos[event.previousIndex])
+    }
   }
 }

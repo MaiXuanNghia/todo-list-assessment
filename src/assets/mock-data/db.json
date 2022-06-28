@@ -1,14 +1,6 @@
 {
   "todos": [
     {
-      "id": 2,
-      "summary": "Finish the assessments",
-      "priority": 2,
-      "isCompleted": false,
-      "dueDate": "2022-06-24T17:00:00.000Z",
-      "description": "Investigate the requirements, develop the application with Angular, SCSS, and Angular Material"
-    },
-    {
       "id": 1,
       "summary": "Continue learning Angular",
       "priority": 3,
@@ -24,29 +16,6 @@
       "dueDate": "2022-06-29T17:00:00.000Z"
     },
     {
-      "id": 4,
-      "summary": "Reading Augular Form 1 2",
-      "priority": 3,
-      "isCompleted": false,
-      "dueDate": "2022-06-28T17:00:00.000Z",
-      "description": ""
-    },
-    {
-      "id": 5,
-      "summary": "Reading Augular Form Twice",
-      "priority": 3,
-      "isCompleted": false,
-      "dueDate": "2022-07-27T17:00:00.000Z"
-    },
-    {
-      "id": 6,
-      "summary": "Test",
-      "description": "Learning Angular material UI",
-      "isCompleted": false,
-      "dueDate": "2022-06-24T17:00:00.000Z",
-      "priority": 3
-    },
-    {
       "id": 7,
       "summary": "Test the hightlight",
       "description": "Todo item must be hightlighted if the deadline is one day left",
@@ -55,13 +24,13 @@
       "isCompleted": false
     },
     {
-      "summary": "New Item",
-      "description": "1123123",
-      "dueDate": "2022-06-28T17:00:00.000Z",
+      "summary": "test item 1",
+      "description": "ádasdasd",
+      "dueDate": "2022-07-30T17:00:00.000Z",
       "completedDate": null,
       "priority": 3,
       "isCompleted": false,
-      "id": 8
+      "id": 9
     }
   ]
 }
