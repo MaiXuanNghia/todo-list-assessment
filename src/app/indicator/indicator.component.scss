@@ -1,0 +1,33 @@
+@import '/src/app/styles/abstracts/variable';
+
+:host {
+    width: 100%;
+    margin: auto;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.indicator {
+    width: 2rem;
+    height: 2rem;
+    border: .5rem solid $GRAY;
+    border-right: .5rem solid transparent;
+    border-radius: 100%;
+    margin: 1rem auto;
+    animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

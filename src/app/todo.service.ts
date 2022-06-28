@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, filter, Observable, of, tap } from 'rxjs';
 import { Todo } from './todo.interface';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class TodoService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  private baseApiEndpoint = 'api/todos'
+  private baseApiEndpoint = 'http://localhost:3000/todos'
 
   constructor(private http: HttpClient) { }
 
@@ -28,8 +28,8 @@ export class TodoService {
     };
   }
 
-  getTodos(summary: string = ''): Observable<Todo[]> {
-    return this.http.get<Todo[]>(`${this.baseApiEndpoint}?summary=${summary}`).pipe(
+  getTodos(): Observable<Todo[]> {
+    return this.http.get<Todo[]>(`${this.baseApiEndpoint}`).pipe(
       tap(todos => console.log(todos)),
       catchError(this.handleError('getTodos', []))
     )
@@ -48,7 +48,7 @@ export class TodoService {
   }
 
   updateTodo(todo: Todo): Observable<Todo> {
-    return this.http.put<Todo>(this.baseApiEndpoint, todo, this.headerOptions).pipe(
+    return this.http.put<Todo>(`${this.baseApiEndpoint}/${todo.id}`, todo, this.headerOptions).pipe(
       catchError(this.handleError<Todo>(`putTodo/${todo.id}`))
     )
   }

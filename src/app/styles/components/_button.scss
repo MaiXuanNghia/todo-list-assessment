@@ -25,3 +25,7 @@
         color: white;
     }
 }
+
+.mat-raised-button + .mat-raised-button {
+    margin: .5rem .5rem .5rem 0;
+}

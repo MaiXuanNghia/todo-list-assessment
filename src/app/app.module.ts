@@ -16,13 +16,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
-import { InMemoryDataService } from './in-memory-data.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import { FinishDirective } from './directives/finished-item.directive';
 import { HightLightDirective } from './directives/hightlight.directive';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { IndicatorComponent } from './indicator/indicator.component';
 
 
 
@@ -35,13 +35,13 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     HightLightDirective,
     CreateTodoComponent,
     ConfirmDialogComponent,
+    IndicatorComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {dataEncapsulation: false}),
     BrowserAnimationsModule,
     MatTableModule,
     MatTooltipModule,

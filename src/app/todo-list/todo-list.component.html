@@ -1,99 +1,42 @@
 <button mat-raised-button class="create-btn" (click)="onOpenCreateTodoDialog()" color="primary">Create Todo</button>
-<table mat-table class="mat-elevation-z8 todo-table" [dataSource]="todos">
-    <form [formGroup]="editForm">
-
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Id </th>
-            <td mat-cell *matCellDef="let todo"> {{todo.id}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="summary">
-            <th mat-header-cell *matHeaderCellDef> Summary </th>
-            <td mat-cell *matCellDef="let todo">
-                <mat-form-field *ngIf="(isEditable && todo.id === itemInEdit?.id); else summaryText"
-                    appearance="outline">
-                    <mat-label>Summary: </mat-label>
-                    <input formControlName="summary" matInput placeholder="30 character limit">
-                </mat-form-field>
-                <ng-template #summaryText>
-                    {{todo.summary}}
-                </ng-template>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="priority">
-            <th mat-header-cell *matHeaderCellDef> Priority </th>
-            <th mat-header-cell *matHeaderCellDef> Summary </th>
-            <td mat-cell *matCellDef="let todo">
-                <mat-form-field appearance="outline"
-                    *ngIf="(isEditable && todo.id === itemInEdit?.id); else priorityVal">
-                    <mat-label>Priority:</mat-label>
-                    <mat-select formControlName="priority">
-                        <mat-option *ngFor="let item of priorities" [value]="item">
-                            {{item}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <ng-template #priorityVal>
-                    {{todo.priority}}
-                </ng-template>
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="isCompleted">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let todo"> {{handleTodoStatus(todo.isCompleted, todo.dueDate)}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="dueDate">
-            <th mat-header-cell *matHeaderCellDef> Due Date </th>
-            <td mat-cell *matCellDef="let todo"> {{todo.dueDate | date: 'longDate'}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="completedDate">
-            <th mat-header-cell *matHeaderCellDef> Completed Date </th>
-            <td mat-cell *matCellDef="let todo">
-                <mat-form-field *ngIf="(isEditable && todo.id === itemInEdit?.id && todo.completedDate); else completeDateVal"
-                    appearance="outline">
-                    <mat-label>Complete Date:</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="dueDate" [max]="today">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker color="primary" matDatePicker></mat-datepicker>
-                </mat-form-field>
-                <ng-template #completeDateVal>
-                    {{todo.completedDate | date: 'longDate'}}
-                </ng-template>
-            </td>
-        </ng-container>
-
-    </form>
-
-    <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef> Action </th>
+<app-indicator [isLoading]="isLoading"></app-indicator>
+<table *ngIf="!isLoading" mat-table class="mat-elevation-z8 todo-table" [dataSource]="todos">
+    <ng-container matColumnDef="summary">
+        <th mat-header-cell *matHeaderCellDef> Summary </th>
         <td mat-cell *matCellDef="let todo">
-            <div *ngIf="(isEditable && todo.id === itemInEdit?.id); else editGroupAction" class="btn-group">
-                <button mat-raised-button color="success" (click)="submitEditForm(editForm.value)">Save</button>
-                <button mat-raised-button (click)="onEditFormHide()" color="warn">Cancel</button>
-
-            </div>
-            <ng-template #editGroupAction>
-                <div class="btn-group">
-                    <button mat-raised-button color="success"
-                        (click)="onEditFormShow(todo)">Edit</button>
-                    <button *ngIf="!todo.isCompleted; else restore" mat-raised-button (click)="onToggleTodoStatus(todo)"
-                        color="warning">Finish</button>
-                    <ng-template #restore>
-                        <button mat-raised-button (click)="onOpenRestoreDialog(todo)" color="accent">Restore</button>
-                    </ng-template>
-                    <button *ngIf="!todo.isCompleted" mat-raised-button color="warn"
-                        (click)="onOpenRemoveDialog(todo)">Remove</button>
-                </div>
-            </ng-template>
+            {{todo.summary}}
         </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay" [deadlineHightLight]="row" [isFinish]="row.isCompleted"
-        [matTooltip]="row.description" matTooltipPosition="below"></tr>
+    <ng-container matColumnDef="isCompleted">
+        <th mat-header-cell *matHeaderCellDef> Is Completed </th>
+        <td mat-cell *matCellDef="let todo"> {{todo.isCompleted ? 'Done' : 'Not Yet'}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="completedDate">
+        <th mat-header-cell *matHeaderCellDef> Completed Date </th>
+        <td mat-cell *matCellDef="let todo">
+            {{todo.completedDate | date: 'longDate'}}
+        </td>
+    </ng-container>
+
+<ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td id="not-blur" mat-cell *matCellDef="let todo">
+        <button mat-raised-button color="success"
+            (click)="onEditFormShow(todo)">Edit</button>
+        <button *ngIf="!todo.isCompleted; else restore" mat-raised-button (click)="onMarkTodoAsFinish(todo)"
+            color="warning">Finish</button>
+        <ng-template #restore>
+            <button mat-raised-button (click)="onOpenRestoreDialog(todo)" color="accent">Restore</button>
+        </ng-template>
+        <button *ngIf="!todo.isCompleted" mat-raised-button color="warn"
+            (click)="onOpenRemoveDialog(todo)">Remove</button>
+    </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+<tr mat-row *matRowDef="let row; columns: columnsToDisplay" [deadlineHightLight]="row" [isFinish]="row.isCompleted"
+    [matTooltip]="row.description" matTooltipPosition="below"></tr>
 </table>
