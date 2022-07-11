@@ -1,0 +1,36 @@
+[
+    {
+      "summary": "Continue learning Angular",
+      "priority": 3,
+      "isCompleted": false,
+      "dueDate": "2022-06-29T17:00:00.000Z"
+    },
+    {
+      "summary": "Research about css",
+      "description": "Research about pre-processor and post-processor",
+      "priority": 1,
+      "isCompleted": false,
+      "dueDate": "2022-06-29T17:00:00.000Z"
+    },
+    {
+      "summary": "Test the hightlight",
+      "description": "Todo item must be hightlighted if the deadline is one day left",
+      "dueDate": "2022-06-27T17:00:00.000Z",
+      "priority": 3,
+      "isCompleted": false
+    },
+    {
+      "summary": "test item 1",
+      "description": "ádasdasd",
+      "dueDate": "2022-07-30T17:00:00.000Z",
+      "priority": 3,
+      "isCompleted": false
+    },
+    {
+      "summary": "Test deadline directive",
+      "description": "123",
+      "dueDate": "2022-06-28T17:00:00.000Z",
+      "priority": 3,
+      "isCompleted": false
+    }
+]
