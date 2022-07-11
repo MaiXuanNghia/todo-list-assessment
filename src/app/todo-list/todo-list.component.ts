@@ -1,7 +1,8 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { delay } from 'rxjs';
+import { QueryRef } from 'apollo-angular';
+import { delay, from, map, Subscription } from 'rxjs';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CreateTodoComponent } from '../create-todo/create-todo.component';
 import { Todo } from '../todo.interface';
@@ -12,7 +13,7 @@ import { TodoService } from '../todo.service';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, OnDestroy {
   public todos: Todo[] = [];
   public itemInEdit!: Todo;
 
@@ -27,6 +28,10 @@ export class TodoListComponent implements OnInit {
     'action',
   ];
 
+  public todosQuery!: QueryRef<{getTodos: Todo[]}>;
+
+  private todoSubscription!: Subscription;
+
   public isLoading: boolean = false;
 
   constructor(private todoService: TodoService, public dialog: MatDialog) {}
@@ -35,16 +40,20 @@ export class TodoListComponent implements OnInit {
     this.getTodos();
   }
 
+  ngOnDestroy(): void {
+    this.todoSubscription.unsubscribe();
+  }
+
   public getTodos() {
     this.isLoading = true;
-    this.todoService
-      .getTodos()
+    this.todosQuery = this.todoService.getTodos();
+    this.todoSubscription = this.todosQuery.valueChanges
       .pipe(delay(2000))
-      .subscribe((todos) => {
-        this.todos = todos
-          .filter((item) => !item.isCompleted)
-          .sort((a, b) => this.sortTodo(a, b));
-        this.isLoading = false;
+      .subscribe(({data, loading}) => {
+        this.todos = data?.getTodos
+          ?.filter(item => !item.isCompleted)
+          ?.sort((a, b) => this.sortTodo(a, b));
+        this.isLoading = loading;
       });
   }
 
@@ -59,11 +68,16 @@ export class TodoListComponent implements OnInit {
     }
   }
 
+  refresh() {
+    this.isLoading = true;
+    this.todosQuery.refetch();
+  }
+
   public onEditFormShow(todo: Todo) {
     const dialogRef = this.dialog.open(CreateTodoComponent, {
       width: '300px',
       data: {
-        reloadTodoList: () => this.getTodos(),
+        reloadTodoList: () => this.refresh(),
         todoItem: todo,
         isEditForm: true,
       },
@@ -77,18 +91,17 @@ export class TodoListComponent implements OnInit {
   public restoreTodo(todo: Todo): void {
     const updateTodo = { ...todo };
     updateTodo.isCompleted = false;
-    delete updateTodo.completedDate;
     this.todoService
       .updateTodo(updateTodo)
       .pipe(delay(2000))
-      .subscribe(() => this.getTodos());
+      .subscribe(() => this.refresh());
   }
 
   public onOpenRestoreDialog(todo: Todo): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '300px',
+      width: '400px',
       data: {
-        title: `Are you sure to restore item with ID=${todo.id}?`,
+        title: `Are you sure to restore item with ID=${todo._id}?`,
         onConfirm: () => {
           this.restoreTodo(todo);
           dialogRef.close();
@@ -105,7 +118,7 @@ export class TodoListComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateTodoComponent, {
       width: '300px',
       data: {
-        reloadTodoList: () => this.getTodos(),
+        reloadTodoList: () => this.refresh(),
       },
     });
 
@@ -117,15 +130,12 @@ export class TodoListComponent implements OnInit {
   public onMarkTodoAsFinish(todo: Todo) {
     const updateTodo = { ...todo };
     updateTodo.isCompleted = true;
-    updateTodo.isCompleted
-      ? (updateTodo.completedDate = new Date())
-      : delete updateTodo.completedDate;
     this.todoService
       .updateTodo(updateTodo)
       .pipe(delay(2000))
       .subscribe(() => {
         this.todos = [
-          ...this.todos.filter((item) => item.id !== todo.id),
+          ...this.todos.filter((item) => item._id !== todo._id),
           updateTodo,
         ];
       });
@@ -133,9 +143,9 @@ export class TodoListComponent implements OnInit {
 
   public onOpenRemoveDialog(todo: Todo) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '300px',
+      width: '400px',
       data: {
-        title: `Are you sure to remove item with ID=${todo.id}?`,
+        title: `Are you sure to remove item with ID=${todo._id}?`,
         onConfirm: () => {
           this.removeTodo(todo);
           dialogRef.close();
@@ -150,9 +160,7 @@ export class TodoListComponent implements OnInit {
 
   private removeTodo(todo: Todo) {
     this.todoService
-      .removeTodo(todo)
-      .pipe(delay(2000))
-      .subscribe(() => this.getTodos());
+      .removeTodo(todo).subscribe(() => this.refresh())
   }
 
   public dropTodoItem(event: CdkDragDrop<Todo[]>) {

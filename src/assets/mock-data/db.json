@@ -4,8 +4,9 @@
       "id": 1,
       "summary": "Continue learning Angular",
       "priority": 3,
-      "isCompleted": false,
-      "dueDate": "2022-06-29T17:00:00.000Z"
+      "isCompleted": true,
+      "dueDate": "2022-06-29T17:00:00.000Z",
+      "completedDate": "2022-07-01T08:14:28.254Z"
     },
     {
       "id": 3,
@@ -21,15 +22,16 @@
       "description": "Todo item must be hightlighted if the deadline is one day left",
       "dueDate": "2022-06-27T17:00:00.000Z",
       "priority": 3,
-      "isCompleted": false
+      "isCompleted": true,
+      "completedDate": "2022-07-01T08:03:57.246Z"
     },
     {
       "summary": "test item 1",
       "description": "ádasdasd",
       "dueDate": "2022-07-30T17:00:00.000Z",
-      "completedDate": null,
+      "completedDate": "2022-07-01T08:14:29.185Z",
       "priority": 3,
-      "isCompleted": false,
+      "isCompleted": true,
       "id": 9
     },
     {
@@ -37,8 +39,44 @@
       "description": "123",
       "dueDate": "2022-06-28T17:00:00.000Z",
       "priority": 3,
+      "isCompleted": true,
+      "id": 10,
+      "completedDate": "2022-07-01T08:14:27.406Z"
+    },
+    {
+      "summary": "test ",
+      "description": "11",
+      "dueDate": "2022-07-01T17:00:00.000Z",
+      "priority": 3,
+      "isCompleted": true,
+      "id": 11,
+      "completedDate": "2022-07-01T08:09:14.106Z"
+    },
+    {
+      "summary": "test 2",
+      "description": "",
+      "dueDate": "2022-07-01T17:00:00.000Z",
+      "priority": 2,
       "isCompleted": false,
-      "id": 10
+      "id": 12
+    },
+    {
+      "summary": "highlight",
+      "description": "",
+      "dueDate": "2022-07-01T17:00:00.000Z",
+      "priority": 3,
+      "isCompleted": true,
+      "id": 14,
+      "completedDate": "2022-07-01T08:12:35.305Z"
+    },
+    {
+      "summary": "ádsa",
+      "description": "",
+      "dueDate": "2022-07-03T17:00:00.000Z",
+      "priority": 3,
+      "isCompleted": true,
+      "id": 15,
+      "completedDate": "2022-07-01T08:13:51.720Z"
     }
   ]
 }

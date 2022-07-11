@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"ng serve -o\" \"json-server --watch ./src/assets/mock-data/db.json\"",
+    "start": "ng serve -o",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "graphql-gen": "graphql-codegen"
   },
   "private": true,
   "dependencies": {
@@ -20,8 +21,14 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+    "@apollo/client": "^3.0.0",
+    "@graphql-codegen/cli": "^2.7.0",
+    "@graphql-codegen/typescript-apollo-angular": "^3.4.13",
+    "@graphql-codegen/typescript-operations": "^2.4.3",
     "angular-in-memory-web-api": "^0.14.0",
+    "apollo-angular": "^3.0.1",
     "concurrently": "^7.2.2",
+    "graphql": "^15.8.0",
     "json-server": "^0.17.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

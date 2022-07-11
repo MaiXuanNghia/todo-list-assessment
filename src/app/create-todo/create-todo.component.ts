@@ -37,7 +37,6 @@ export class CreateTodoComponent implements OnInit, OnDestroy {
     ]),
     description: new FormControl<string>(''),
     dueDate: new FormControl<Date>(this.defaultDeadline),
-    completedDate: new FormControl<Date|null>({value: null, disabled: !this.data.todoItem?.isCompleted}),
     priority: new FormControl<number>(1),
   });
 
@@ -75,7 +74,7 @@ export class CreateTodoComponent implements OnInit, OnDestroy {
     }
     else {
       this.todoService
-      .createTodo({ ...formData, isCompleted: false } as Todo)
+      .createTodo({ ...formData } as Todo)
       .subscribe(() => {
         alert('Todo Item Created');
         this.data.reloadTodoList();

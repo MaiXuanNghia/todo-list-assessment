@@ -12,6 +12,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
+import {ApolloModule, APOLLO_OPTIONS, APOLLO_FLAGS} from 'apollo-angular';
+import {HttpLink} from 'apollo-angular/http';
+import {InMemoryCache} from '@apollo/client/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,9 +57,29 @@ import { IndicatorComponent } from './indicator/indicator.component';
     MatDatepickerModule,
     MatNativeDateModule,
     DragDropModule,
-    MatIconModule
+    MatIconModule,
+    ApolloModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APOLLO_FLAGS,
+      useValue: {
+        useInitialLoading: true, // enable it here
+      },
+    },
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://localhost:3000/graphql?',
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

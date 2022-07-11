@@ -24,8 +24,8 @@
         </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline">
-        <mat-label>{{!isEdit ? "Due Date:": "Completed Date:"}}</mat-label>
-        <input matInput [matDatepicker]="picker" [formControlName]="!isEdit ? 'dueDate': 'completedDate'" [min]="today">
+        <mat-label>Due Date:</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dueDate" [min]="today">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker color="primary" matDatePicker></mat-datepicker>

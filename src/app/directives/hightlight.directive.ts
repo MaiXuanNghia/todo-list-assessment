@@ -21,6 +21,7 @@ export class HightLightDirective {
         const today = new Date();
         const deadline = new Date(todo.dueDate);
         const deadlineCount = deadline.getDate() - today.getDate();
+        console.log(deadlineCount);
         if(today.getMonth() === deadline.getMonth()) {
             if(deadlineCount <= 0) {
                 this.setHightlightColor('#e30e2a');
